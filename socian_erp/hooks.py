@@ -5,6 +5,11 @@ app_description = "й"
 app_email = "ttt@ttt.tt"
 app_license = "mit"
 
+fixtures = [
+    {"dt": "Role", "filters": [["name", "in", ["Test", "Agent", "Director"]]]},
+    {"dt": "Custom DocPerm"},
+    {"dt": "Workspace", "filters": [["name", "in", ["socian"]]]},
+]
 # Apps
 # ------------------
 
