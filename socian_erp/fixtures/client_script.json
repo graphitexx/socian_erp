@@ -1,0 +1,24 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Deal",
+  "enabled": 1,
+  "modified": "2026-08-18 17:05:36.324090",
+  "module": null,
+  "name": "Script1",
+  "script": "frappe.ui.form.on('Deal Service Item', {\r\n    service: function(frm, cdt, cdn) {\r\n        let row = locals[cdt][cdn];\r\n        if (row.service) {\r\n            // Получаем стандартную цену из справочника Service\r\n            frappe.db.get_value('Service', row.service, 'standard_rate', (r) => {\r\n                if (r && r.standard_rate) {\r\n                    frappe.model.set_value(cdt, cdn, 'rate', r.standard_rate);\r\n                    frappe.model.set_value(cdt, cdn, 'qty', row.qty || 1);\r\n                    frappe.model.set_value(cdt, cdn, 'amount', r.standard_rate * (row.qty || 1));\r\n                }\r\n            });\r\n        }\r\n    },\r\n    rate: function(frm, cdt, cdn) {\r\n        let row = locals[cdt][cdn];\r\n        frappe.model.set_value(cdt, cdn, 'amount', (row.rate || 0) * (row.qty || 1));\r\n    },\r\n    qty: function(frm, cdt, cdn) {\r\n        let row = locals[cdt][cdn];\r\n        frappe.model.set_value(cdt, cdn, 'amount', (row.rate || 0) * (row.qty || 1));\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Deal",
+  "enabled": 1,
+  "modified": "2026-08-18 17:32:27.788056",
+  "module": null,
+  "name": "Deal money",
+  "script": "frappe.ui.form.on('Deal', {\r\n    refresh: function(frm) {\r\n        calculate_services_total(frm);\r\n    },\r\n    paid_by_developer: function(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n    paid_by_bank: function(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n    paid_by_insurance: function(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n    tax_rate: function(frm) {\r\n        calculate_totals(frm);\r\n    },\r\n    agent_rate: function(frm) {\r\n        calculate_totals(frm);\r\n    }\r\n});\r\n\r\n// Отслеживаем изменения в таблице Deal Service Item (где цена = rate)\r\nfrappe.ui.form.on('Deal Service Item', {\r\n    rate: function(frm, cdt, cdn) {\r\n        calculate_services_total(frm);\r\n    },\r\n    service: function(frm, cdt, cdn) {\r\n        // Задержка, чтобы Fetch From успел записать значение в rate\r\n        setTimeout(() => {\r\n            calculate_services_total(frm);\r\n        }, 400);\r\n    },\r\n    qty: function(frm, cdt, cdn) {\r\n        calculate_services_total(frm);\r\n    },\r\n    services_add: function(frm) {\r\n        calculate_services_total(frm);\r\n    },\r\n    services_remove: function(frm) {\r\n        calculate_services_total(frm);\r\n    }\r\n});\r\n\r\n// 1. Подсчёт суммы по таблице услуг\r\nfunction calculate_services_total(frm) {\r\n    let total_services = 0;\r\n    \r\n    let rows = frm.doc.services || [];\r\n    rows.forEach(row => {\r\n        // Берем считываемое значение из поля rate\r\n        let price = flt(row.rate) || flt(row.price) || flt(row.amount) || 0;\r\n        let qty = flt(row.qty) || 1;\r\n        total_services += price * qty;\r\n    });\r\n\r\n    frm.set_value('total_paid_services', total_services);\r\n    frm.refresh_field('total_paid_services');\r\n    \r\n    calculate_totals(frm);\r\n}\r\n\r\n// 2. Полный финансовый расчёт сделки\r\nfunction calculate_totals(frm) {\r\n    let dev = flt(frm.doc.paid_by_developer);\r\n    let bank = flt(frm.doc.paid_by_bank);\r\n    let ins = flt(frm.doc.paid_by_insurance);\r\n    let services = flt(frm.doc.total_paid_services);\r\n\r\n    // Выплаты от партнеров\r\n    let total_comm = dev + bank + ins;\r\n    frm.set_value('total_commission', total_comm);\r\n\r\n    // Валовая выручка (Партнеры + Услуги)\r\n    let gross_revenue = total_comm + services;\r\n    frm.set_value('total_gross_revenue', gross_revenue);\r\n\r\n    // Налог\r\n    let tax_pct = flt(frm.doc.tax_rate);\r\n    let tax_amt = gross_revenue * (tax_pct / 100);\r\n    frm.set_value('tax_amount', tax_amt);\r\n\r\n    // Чистая КВ (Валовая выручка - Налог)\r\n    let net_comm = gross_revenue - tax_amt;\r\n    frm.set_value('net_commission', net_comm);\r\n\r\n    // Комиссия Агента\r\n    let agent_pct = flt(frm.doc.agent_rate);\r\n    let agent_comm = net_comm * (agent_pct / 100);\r\n    frm.set_value('agent_commission', agent_comm);\r\n\r\n    // Доход компании\r\n    let company_comm = net_comm - agent_comm;\r\n    frm.set_value('company_commission', company_comm);\r\n}",
+  "view": "Form"
+ }
+]
