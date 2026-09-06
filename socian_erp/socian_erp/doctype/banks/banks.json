@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:name_bank",
@@ -6,20 +7,27 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name_bank"
+  "name_bank",
+  "contact"
  ],
  "fields": [
   {
    "fieldname": "name_bank",
    "fieldtype": "Data",
-   "label": "\u0418\u043c\u044f",
+   "label": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435",
    "unique": 1
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
+   "options": "Contacts"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-19 11:55:51.538104",
+ "modified": "2026-09-06 19:14:26.104559",
  "modified_by": "Administrator",
  "module": "Socian ERP",
  "name": "Banks",

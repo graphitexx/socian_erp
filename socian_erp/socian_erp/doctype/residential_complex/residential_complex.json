@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:name_rc",
@@ -6,20 +7,29 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name_rc"
+  "name_rc",
+  "developer_rc"
  ],
  "fields": [
   {
    "fieldname": "name_rc",
    "fieldtype": "Data",
-   "label": "Name",
+   "label": "\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435",
    "unique": 1
+  },
+  {
+   "fieldname": "developer_rc",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": " \u0417\u0430\u0441\u0442\u0440\u043e\u0439\u0449\u0438\u043a",
+   "options": "Developers",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-19 11:57:05.861307",
+ "modified": "2026-09-06 19:10:28.930527",
  "modified_by": "Administrator",
  "module": "Socian ERP",
  "name": "residential complex",

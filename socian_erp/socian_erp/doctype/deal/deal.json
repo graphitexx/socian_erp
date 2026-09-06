@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "DEAL-.YYYY.-.#####",
@@ -9,18 +10,16 @@
   "\u0434\u0434\u0443_section",
   "deal_type",
   "status",
-  "client",
+  "client_deal",
   "posting_date",
+  "agent_deal",
   "\u0443\u0441\u043b\u0443\u0433\u0438",
   "services",
   "total_paid_services",
   "kb",
   "total_commission",
   "tax_rate",
-  "tax_amount",
-  "net_commission",
   "agent_rate",
-  "company_commission",
   "column_break_nvqv",
   "developer",
   "residential_complex",
@@ -30,9 +29,12 @@
   "paid_by_developer",
   "paid_by_bank",
   "paid_by_insurance",
+  "\u0438\u0442\u043e\u0433",
   "total_gross_revenue",
   "agent_commission",
-  "tab_2_tab"
+  "company_commission",
+  "tax_amount",
+  "net_commission"
  ],
  "fields": [
   {
@@ -49,19 +51,11 @@
    "reqd": 1
   },
   {
-   "fieldname": "client",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "\u041a\u043b\u0438\u0435\u043d\u0442",
-   "options": "Client",
-   "reqd": 1
-  },
-  {
    "depends_on": "eval:doc.deal_type=='\u0414\u0414\u0423'",
    "fieldname": "developer",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "developer",
+   "label": "\u0417\u0430\u0441\u0442\u0440\u043e\u0439\u0449\u0438\u043a",
    "options": "Developers",
    "read_only_depends_on": "eval:doc.status=='\u0417\u0430\u043a\u0440\u044b\u0442\u0430'"
   },
@@ -69,7 +63,7 @@
    "depends_on": "eval:doc.deal_type=='\u0414\u0414\u0423'",
    "fieldname": "residential_complex",
    "fieldtype": "Link",
-   "label": "residential_complex",
+   "label": "\u0416\u041a",
    "options": "residential complex",
    "read_only_depends_on": "eval:doc.status=='\u0417\u0430\u043a\u0440\u044b\u0442\u0430'"
   },
@@ -77,7 +71,7 @@
    "depends_on": "eval:doc.deal_type=='\u0414\u0414\u0423'",
    "fieldname": "bank",
    "fieldtype": "Link",
-   "label": "bank",
+   "label": "\u0411\u0430\u043d\u043a",
    "options": "Banks",
    "read_only_depends_on": "eval:doc.status=='\u0417\u0430\u043a\u0440\u044b\u0442\u0430'"
   },
@@ -85,7 +79,7 @@
    "depends_on": "eval:doc.deal_type=='\u0414\u0414\u0423'",
    "fieldname": "insurance_company",
    "fieldtype": "Data",
-   "label": "insurance_company"
+   "label": "\u0421\u0442\u0440\u0430\u0445\u043e\u0432\u0430\u044f \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f"
   },
   {
    "fieldname": "\u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a",
@@ -96,28 +90,28 @@
    "depends_on": "eval:doc.deal_type === '\u0414\u0414\u0423'",
    "fieldname": "paid_by_developer",
    "fieldtype": "Currency",
-   "label": "paid_by_developer"
+   "label": "\u041a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u043e\u0442 \u0437\u0430\u0441\u0442\u0440\u043e\u0449\u0438\u043a\u0430"
   },
   {
    "fieldname": "paid_by_bank",
    "fieldtype": "Currency",
-   "label": "paid_by_bank"
+   "label": "\u041a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u043e\u0442 \u0431\u0430\u043d\u043a\u0430"
   },
   {
    "fieldname": "paid_by_insurance",
    "fieldtype": "Currency",
-   "label": "paid_by_insurance"
+   "label": "\u041a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u043e\u0442 \u0441\u0442\u0440\u0430\u0445\u043e\u0432\u043e\u0439 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438"
   },
   {
    "fieldname": "total_paid_services",
    "fieldtype": "Currency",
-   "label": "total_paid_services",
+   "label": "\u0418\u0442\u043e\u0433\u043e\u0432\u0430\u044f \u0441\u0443\u043c\u043c\u0430 \u0437\u0430 \u0443\u0441\u043b\u0443\u0433\u0438",
    "read_only": 1
   },
   {
    "fieldname": "total_gross_revenue",
    "fieldtype": "Float",
-   "label": "total_gross_revenue"
+   "label": "\u0418\u0442\u043e\u0433\u043e\u0432\u0430\u044f \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u043e\u0442 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439"
   },
   {
    "fieldname": "kb",
@@ -127,30 +121,30 @@
   {
    "fieldname": "total_commission",
    "fieldtype": "Currency",
-   "label": "total_commission"
+   "label": "\u0418\u0442\u043e\u0433\u043e\u0432\u0430\u044f \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f"
   },
   {
    "fieldname": "tax_amount",
    "fieldtype": "Currency",
-   "label": "tax_amount",
+   "label": "\u0421\u0443\u043c\u043c\u0430 \u043d\u0430\u043b\u043e\u0433\u0430",
    "read_only": 1
   },
   {
    "fieldname": "net_commission",
    "fieldtype": "Currency",
-   "label": "net_commission",
+   "label": "\u0427\u0438\u0441\u0442\u0430\u044f \u043a\u043e\u043c\u0438\u0441\u0441\u0438\u044f",
    "read_only": 1
   },
   {
    "fieldname": "agent_commission",
    "fieldtype": "Currency",
-   "label": "agent_commission",
+   "label": "\u041a\u043e\u043c\u0438\u0441\u0441\u0438\u044f \u0430\u0433\u0435\u043d\u0442\u0430",
    "read_only": 1
   },
   {
    "fieldname": "company_commission",
    "fieldtype": "Currency",
-   "label": "company_commission",
+   "label": "\u0412\u043e\u0437\u043d\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043d\u0438\u0435 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0438",
    "read_only": 1
   },
   {
@@ -163,7 +157,7 @@
    "fieldname": "deal_type",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "deal_type",
+   "label": "\u0422\u0438\u043f \u0441\u0434\u0435\u043b\u043a\u0438",
    "options": "\u0414\u0414\u0423\n\u0414\u041a\u041f\n\u0418\u0416\u0421\n\u041f\u0435\u0440\u0435\u0443\u0441\u0442\u0443\u043f\u043a\u0430"
   },
   {
@@ -171,19 +165,14 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "tab_2_tab",
-   "fieldtype": "Tab Break",
-   "label": "Tab 2"
-  },
-  {
    "fieldname": "tax_rate",
    "fieldtype": "Percent",
-   "label": "tax_rate"
+   "label": "\u041d\u0430\u043b\u043e\u0433\u043e\u0432\u0430\u044f \u0441\u0442\u0430\u0432\u043a\u0430"
   },
   {
    "fieldname": "agent_rate",
    "fieldtype": "Percent",
-   "label": "agent_rate"
+   "label": "\u041f\u0440\u043e\u0446\u0435\u043d\u0442 \u0430\u0433\u0435\u043d\u0442\u0430"
   },
   {
    "fieldname": "\u0443\u0441\u043b\u0443\u0433\u0438",
@@ -197,12 +186,31 @@
    "label": "\u0421\u0442\u0430\u0442\u0443\u0441",
    "options": "\u041d\u043e\u0432\u0430\u044f\n\u0411\u0440\u043e\u043d\u044c\n\u0417\u0430\u043a\u0440\u044b\u0442\u0430",
    "reqd": 1
+  },
+  {
+   "fieldname": "agent_deal",
+   "fieldtype": "Link",
+   "label": "\u0410\u0433\u0435\u043d\u0442",
+   "options": "User"
+  },
+  {
+   "fieldname": "client_deal",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "\u041a\u043b\u0438\u0435\u043d\u0442",
+   "options": "Client",
+   "reqd": 1
+  },
+  {
+   "fieldname": "\u0438\u0442\u043e\u0433",
+   "fieldtype": "Heading",
+   "label": "\u0418\u0442\u043e\u0433"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-19 10:34:38.270090",
+ "modified": "2026-09-06 19:22:44.511684",
  "modified_by": "Administrator",
  "module": "Socian ERP",
  "name": "Deal",

@@ -1,39 +1,40 @@
 {
- "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:name_developer",
- "creation": "2026-08-17 11:43:49.353017",
+ "creation": "2026-09-06 19:11:39.784391",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name_developer",
-  "contacts_dev"
+  "full_name_contacts",
+  "phone_num_contacts",
+  "mail_contacts"
  ],
  "fields": [
   {
-   "fieldname": "name_developer",
+   "fieldname": "full_name_contacts",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Name",
-   "reqd": 1,
-   "unique": 1
+   "label": "\u0424\u0418\u041e",
+   "reqd": 1
   },
   {
-   "fieldname": "contacts_dev",
-   "fieldtype": "Link",
-   "label": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442\u043d\u043e\u0435 \u043b\u0438\u0446\u043e",
-   "options": "Contacts"
+   "fieldname": "phone_num_contacts",
+   "fieldtype": "Phone",
+   "label": "\u0422\u0435\u043b\u0435\u0444\u043e\u043d"
+  },
+  {
+   "fieldname": "mail_contacts",
+   "fieldtype": "Data",
+   "label": "\u041f\u043e\u0447\u0442\u0430"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-06 19:14:09.985621",
+ "modified": "2026-09-06 19:13:16.587386",
  "modified_by": "Administrator",
  "module": "Socian ERP",
- "name": "Developers",
- "naming_rule": "By fieldname",
+ "name": "Contacts",
  "owner": "Administrator",
  "permissions": [
   {
@@ -51,10 +52,7 @@
  ],
  "row_format": "Dynamic",
  "rows_threshold_for_grid_search": 20,
- "search_fields": "name_developer",
- "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
- "title_field": "name_developer"
+ "states": []
 }
