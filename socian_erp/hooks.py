@@ -10,6 +10,9 @@ fixtures = [
     {"dt": "Custom DocPerm"},
     {"dt": "Workspace", "filters": [["name", "in", ["socian"]]]},
     {"dt": "Dashboard Chart", "filters": [["name", "in", ["Динамика валового дохода"]]]},
+    {"dt": "Client Script"},
+    {"dt": "Server Script"},
+
 ]
 # Apps
 # ------------------
